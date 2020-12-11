@@ -3,10 +3,15 @@ const express = require("express")
 const app = express();
 
 const router = require("./routes/router")
+require("dotenv").config();
+const connectDB = require("./models/connectDB")
+
+app.use(express.json())
 
 
 // Only api endpoint
+connectDB()
 app.use("/api", router)
-app.listen(5000, () =>{
-    console.log("ı am listening")
+app.listen(process.env.PORT, () =>{
+    console.log(`I am listening on port ${process.env.PORT}`)
 })
