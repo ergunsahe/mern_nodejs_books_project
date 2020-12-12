@@ -18,7 +18,7 @@ router.use("/auth", authRouter)
  * @route /api/profile
  * @desc route for profile
  */
-// router.use("/profile", profilehRouter)
+router.use("/profile", profileRouter)
 
 
 /**
