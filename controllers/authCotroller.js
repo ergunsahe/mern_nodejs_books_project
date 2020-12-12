@@ -1,21 +1,26 @@
 const User = require("../models/userModel")
+const bcrypt = require("bcryptjs")
 
 
 exports.authRegister = async (req, res) => {
+    const { firstName, lastName, email, password } = req.body;
     
+    const salt = await bcrypt.genSalt(10)
+    const newPassword = await bcrypt.hash(password, salt)
     /*
         -validate the fields
         -check already registered
-        -crypt password
-        -save user to DB
+        
     */
-
-    const { firstName, lastName, email, password } = req.body;
+    const userData = await User.findOne({email})
+    if (userData) {
+        return res.status(400).json({errors: [{message: "User already exist!"}]})
+    }
     const user = new User ({
         firstName,
         lastName,
         email,
-        password // crypted password
+        password: newPassword // crypted password
     })
     
     await user.save()
