@@ -1,5 +1,6 @@
 
 const express = require("express")
+const auth = require("../middleware/authMiddleware")
 
 const router = express.Router()
 // bas url: /api/profile
@@ -9,8 +10,8 @@ const router = express.Router()
  * @access private
  * 
  */
-router.post("/", (req, res) =>{
-    res.send("private profile page")
+router.post("/", auth, (req, res) =>{
+    res.send(req.decodedUser.email)
 })
 
 module.exports = router;
