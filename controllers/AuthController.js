@@ -59,14 +59,3 @@ exports.authLogin = async (req, res) => {
   );
 };
 
-
-
-
-
-// console.log(
-//     "fields:",
-//     firstName, 
-//     lastName, 
-//     email, 
-//     password
-// )
