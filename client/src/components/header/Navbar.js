@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout, Menu } from "antd";
 import { useHistory } from "react-router-dom";
 import { Badge } from "antd";
@@ -8,13 +8,20 @@ const { Header } = Layout;
 
 const Navbar = () => {
   const [current, setCurrent] = useState("home");
+  const [isLogged, setIsLogged] = useState();
   const history = useHistory();
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (token) setIsLogged(true);
+  }, [token]);
 
   const handleLogoClick = (e) => {
     history.push(`/`);
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("token");
     history.push(`/`);
   };
   const handleClick = (e) => {
@@ -41,13 +48,20 @@ const Navbar = () => {
         <Menu.Item key="books">Books</Menu.Item>
 
         <a href="/cart" className="cart-navbar-link">
-          <Badge count={5}>
+          <Badge count={1}>
             <ShoppingCartOutlined className="cart-icon" />
           </Badge>
         </a>
-        <Menu.Item key="signin">Sign In</Menu.Item>
-        <Menu.Item key="signup">Sign Up</Menu.Item>
-        <Menu.Item key="logout">Logout</Menu.Item>
+        {isLogged ? (
+          <Menu.Item key="logout" onClick={handleLogout}>
+            Logout
+          </Menu.Item>
+        ) : (
+          <>
+            <Menu.Item key="signin">Sign In</Menu.Item>
+            <Menu.Item key="signup">Sign Up</Menu.Item>
+          </>
+        )}
       </Menu>
     </Header>
   );
