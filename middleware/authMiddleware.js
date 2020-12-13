@@ -1,21 +1,23 @@
-const jwt = require("jsonwebtoken")
+var jwt = require("jsonwebtoken");
 
-const authMiddleware = (req, res, next) =>{
-    // get token
-    const token = req.header("token")
-    // return error if token doesnt exist
-    if (!token) {
-        return res.status(400).json({msg: "No token"})
+const authMiddleware = (req, res, next) => {
+  //get Token
+  const token = req.header("token");
+
+  //Return error if token doesn't exist
+  if (!token) {
+    return res.status(401).json({ msg: "No Token" });
+  }
+
+  //Verify token
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decodedToken) => {
+    if (err) {
+      return res.status(401).json({ msg: "Invalid Token" });
+    } else {
+      req.decodedUser = decodedToken.userData;
+      next();
     }
-    // verify token
-    jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decodecToken) =>{
-        if (err) {
-            return res.status(401).json({msg: "Invalid token"})
-        } else {
-            req.decodedUser = decodecToken.userData
-            next()
-        }
-    })
-}
+  });
+};
 
-module.exports = authMiddleware
+module.exports = authMiddleware;

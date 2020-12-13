@@ -1,33 +1,28 @@
-const express = require("express")
+const express = require("express");
 
-const router = express.Router()
-const authRouter = require("./authRouter")
-const profileRouter = require("./profileRouter")
-const bookRouter = require("./bookRouter")
+const router = express.Router();
+const AuthRouter = require("./AuthRouter");
+const ProfileRouter = require("./ProfileRouter");
+const BookRouter = require("./BookRouter");
 
+// Only /api endpoint
 
-
-// Only api endpoint
 /**
  * @route /api/auth
- * @desc route for auth
+ * @desc Route for Auth
  */
-router.use("/auth", authRouter)
+router.use("/auth", AuthRouter);
 
 /**
  * @route /api/profile
- * @desc route for profile
+ * @desc Route for Profile
  */
-router.use("/profile", profileRouter)
-
+router.use("/profile", ProfileRouter);
 
 /**
  * @route /api/book
- * @desc route for book
+ * @desc Route for Book
  */
-// router.use("/book", bookRouter)
-
-
-
+router.use("/books", BookRouter);
 
 module.exports = router;
