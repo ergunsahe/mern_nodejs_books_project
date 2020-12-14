@@ -4,4 +4,7 @@
 MONGODB_URI=
 PORT=
 JWT_SECRET_KEY=
-https://dashboard.heroku.com/apps/test-mern-project
+
+
+### App link on Heroku:
+  https://test-mern-project.herokuapp.com/
