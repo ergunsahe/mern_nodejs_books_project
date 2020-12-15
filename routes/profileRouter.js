@@ -1,7 +1,7 @@
 const express = require("express");
 const auth = require("../middleware/authMiddleware");
 const router = express.Router();
-const ProfileController = require("../controllers/ProfileController");
+const ProfileController = require("../controllers/profileController");
 
 // base url: /api/profile
 
